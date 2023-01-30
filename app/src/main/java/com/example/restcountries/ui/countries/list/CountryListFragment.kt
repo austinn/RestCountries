@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.restcountries.data.local.Country
-import com.example.restcountries.data.local.countryList
+import com.example.restcountries.data.entities.CountryEntity
+import com.example.restcountries.data.entities.countryList
 import com.example.restcountries.databinding.FragmentCountryListBinding
 
 class CountryListFragment : Fragment() {
@@ -29,7 +29,7 @@ class CountryListFragment : Fragment() {
 
         val countryAdapter =
             CountryListAdapter(countryList, onClickCallback = object : CountryListCallback {
-                override fun onClick(country: Country) {
+                override fun onClick(country: CountryEntity) {
                     Toast.makeText(context, country.name, Toast.LENGTH_SHORT).show()
                 }
             })
