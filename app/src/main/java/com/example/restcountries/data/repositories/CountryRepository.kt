@@ -65,7 +65,12 @@ class CountryRepository @Inject constructor(
 
         }.map {
             if (it.data != null) {
-                it.data.map { e -> CountryEntity(name = e.name.common) }
+                it.data.map { country ->
+                    CountryEntity(
+                        name = country.name.common,
+                        flag = country.flags?.png,
+                    )
+                }
             } else {
                 emptyList()
             }

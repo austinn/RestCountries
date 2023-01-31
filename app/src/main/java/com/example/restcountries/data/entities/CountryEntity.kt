@@ -16,14 +16,12 @@ data class CountryEntity(
     val region: String? = null,
     val subregion: String? = null,
     val latlng: List<Double>? = null,
-
-    @Embedded
-    val flags: Flags? = null
+    val flag: String? = null,
 )
 
 data class Flags(
-    val svg: String,
-    val png: String,
+    val svg: String?,
+    val png: String?,
 )
 
 //val countryList = listOf(

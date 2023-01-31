@@ -8,7 +8,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface CountryService {
-    @GET("all?fields=name")
+    // hardcode queryparam fields for now
+    @GET("all?fields=name,flags")
     suspend fun getCountryList(): Response<ArrayList<CountryListGet>>
 
     @GET("name/{name}")

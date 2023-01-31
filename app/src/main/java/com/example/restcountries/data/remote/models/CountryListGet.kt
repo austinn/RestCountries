@@ -1,7 +1,10 @@
 package com.example.restcountries.data.remote.models
 
-data class CountryListGet (
+import com.example.restcountries.data.entities.Flags
+
+data class CountryListGet(
     val name: CountryName,
+    val flags: Flags? = null
 )
 
 data class CountryName(
