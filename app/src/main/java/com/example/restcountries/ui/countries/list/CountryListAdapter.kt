@@ -2,6 +2,7 @@ package com.example.restcountries.ui.countries.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -32,6 +33,9 @@ class CountryListAdapter(
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
         val country = list[position]
         holder.bind(country)
+
+        holder.itemView.animation =
+            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.country_list_anim)
     }
 
     override fun getItemCount() = list.size
