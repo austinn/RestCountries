@@ -18,10 +18,10 @@ interface CountryDao {
     fun getAll(): Flow<List<CountryEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(lights: CountryEntity)
+    suspend fun insert(countries: CountryEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(lights: List<CountryEntity>)
+    suspend fun insertAll(countries: List<CountryEntity>)
 
     @Query("DELETE FROM country")
     suspend fun deleteAll()

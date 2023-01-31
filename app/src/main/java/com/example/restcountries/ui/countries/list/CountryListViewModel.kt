@@ -7,6 +7,7 @@ import com.example.restcountries.data.repositories.CountryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,7 +28,7 @@ class CountryListViewModel @Inject constructor(
 
         viewModelScope.launch {
             repository.getCountryList().collect { countries ->
-                _uiState.value = CountryListUiState.Success(countries)
+                _uiState.update { CountryListUiState.Success(countries) }
             }
         }
     }
