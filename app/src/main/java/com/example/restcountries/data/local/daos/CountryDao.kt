@@ -1,12 +1,10 @@
-package com.example.restcountries.data.local;
+package com.example.restcountries.data.local.daos;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import com.example.restcountries.data.entities.CountryEntity
-
-import java.util.List;
 
 import kotlinx.coroutines.flow.Flow;
 

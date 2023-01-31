@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.restcountries.data.entities.CountryEntity
+import com.example.restcountries.data.local.daos.CountryDao
 
 @Database(
     version = 1,

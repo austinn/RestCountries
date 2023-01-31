@@ -6,11 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.restcountries.R
 import com.example.restcountries.data.entities.CountryEntity
 import com.example.restcountries.data.entities.countryList
 import com.example.restcountries.databinding.FragmentCountryListBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
+@AndroidEntryPoint
 class CountryListFragment : Fragment() {
+
+    private val viewModel: CountryListViewModel by viewModels()
 
     private var _binding: FragmentCountryListBinding? = null
     private val binding get() = _binding!!
@@ -27,8 +38,9 @@ class CountryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // setup recyclerview and adapter
         val countryAdapter =
-            CountryListAdapter(countryList, onClickCallback = object : CountryListCallback {
+            CountryListAdapter(emptyList(), onClickCallback = object : CountryListCallback {
                 override fun onClick(country: CountryEntity) {
                     Toast.makeText(context, country.name, Toast.LENGTH_SHORT).show()
                 }
@@ -36,6 +48,37 @@ class CountryListFragment : Fragment() {
 
         binding.rvCountries.apply {
             adapter = countryAdapter
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.getCountries()
+        }
+
+        // start listening for data only when the Lifecycle is STARTED
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { uiState ->
+                    when (uiState) {
+                        is CountryListUiState.Error -> {
+                            // show error
+                            Timber.w("CountryListUiState.Error")
+                            binding.refreshLayout.isRefreshing = false
+                        }
+
+                        is CountryListUiState.Loading -> {
+                            // show loading
+                            Timber.i("CountryListUiState.Loading")
+                            binding.refreshLayout.isRefreshing = true
+                        }
+
+                        is CountryListUiState.Success -> {
+                            Timber.i("CountryListUiState.Success")
+                            countryAdapter.setData(uiState.countries)
+                            binding.refreshLayout.isRefreshing = false
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "country")
 data class CountryEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int? = null,
 
     val name: String,
-    val capital: String,
+    val capital: String? = null,
     val region: String? = null,
     val subregion: String? = null,
     val population: Int? = null,

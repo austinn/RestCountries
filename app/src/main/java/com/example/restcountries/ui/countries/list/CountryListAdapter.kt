@@ -17,7 +17,7 @@ class CountryListAdapter(
 
     fun setData(countries: List<CountryEntity>) {
         list = countries
-        notifyItemRangeInserted(0, list.size)
+        notifyItemRangeChanged(0, list.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
