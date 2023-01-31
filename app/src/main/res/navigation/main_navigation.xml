@@ -9,5 +9,20 @@
         android:id="@+id/navigation_countries"
         android:name="com.example.restcountries.ui.countries.list.CountryListFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_country_list" />
+        tools:layout="@layout/fragment_country_list">
+        <action
+            android:id="@+id/action_navigation_countries_to_countryDetailFragment"
+            app:destination="@id/countryDetailFragment"
+            app:popUpTo="@id/navigation_countries" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/countryDetailFragment"
+        android:name="com.example.restcountries.ui.countries.detail.CountryDetailFragment"
+        android:label="@string/title_details"
+        tools:layout="@layout/fragment_country_detail">
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -34,7 +34,6 @@ class CountryListViewModel @Inject constructor(
     }
 }
 
-// Represents different states for the LatestNews screen
 sealed class CountryListUiState {
     data class Success(val countries: List<CountryEntity>) : CountryListUiState()
     data class Loading(val loading: Boolean = true) : CountryListUiState()

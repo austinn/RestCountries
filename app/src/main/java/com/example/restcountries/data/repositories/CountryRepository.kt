@@ -5,12 +5,9 @@ import com.example.restcountries.data.local.daos.CountryDao
 import com.example.restcountries.data.remote.ApiResult
 import com.example.restcountries.data.remote.services.CountryService
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onEmpty
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -57,10 +54,6 @@ class CountryRepository @Inject constructor(
         Timber.i("getCountryList() - fetching from Network")
 
         return flow {
-            // hold for now
-            // emit(ApiResult.loading())
-
-
             val response = countryService.getCountryList()
 
             if (response.isSuccessful) {
@@ -80,5 +73,31 @@ class CountryRepository @Inject constructor(
             it.sortedBy { e -> e.name }
         }
 
+    }
+
+    suspend fun getCountryDetails(name: String): Flow<CountryEntity?> {
+        return flow {
+            val response = countryService.getCountryDetails(name)
+
+            if (response.isSuccessful) {
+                Timber.i("response.isSuccessful")
+                emit(ApiResult.success(data = response.body()))
+            } else {
+                emit(ApiResult.error(message = "Something went wrong"))
+            }
+        }.map {
+            it.data?.let { details ->
+                // assume a match was found, since we're passing in the full name
+                val country = details.first()
+                CountryEntity(
+                    name = country.name.common,
+                    capital = country.capital?.firstOrNull(),
+                    population = country.population,
+                    area = country.area,
+                    region = country.region,
+                    subregion = country.subregion,
+                )
+            }
+        }
     }
 }

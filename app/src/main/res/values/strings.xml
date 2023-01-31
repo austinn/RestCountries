@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">RestCountries</string>
     <string name="title_home">Countries</string>
+    <string name="title_details">Country Details</string>
 
-
+    <string name="label_capital">Capital:</string>
+    <string name="label_population">Population:</string>
+    <string name="label_area">Area:</string>
+    <string name="label_region">Region:</string>
+    <string name="label_subregion">SubRegion:</string>
 </resources>

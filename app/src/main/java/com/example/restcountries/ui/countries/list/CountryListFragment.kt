@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.restcountries.R
+import androidx.navigation.fragment.findNavController
 import com.example.restcountries.data.entities.CountryEntity
-import com.example.restcountries.data.entities.countryList
 import com.example.restcountries.databinding.FragmentCountryListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -42,9 +40,15 @@ class CountryListFragment : Fragment() {
         val countryAdapter =
             CountryListAdapter(emptyList(), onClickCallback = object : CountryListCallback {
                 override fun onClick(country: CountryEntity) {
-                    Toast.makeText(context, country.name, Toast.LENGTH_SHORT).show()
+                    val action =
+                        CountryListFragmentDirections.actionNavigationCountriesToCountryDetailFragment(
+                            name = country.name
+                        )
+                    findNavController().navigate(action)
                 }
             })
+
+
 
         binding.rvCountries.apply {
             adapter = countryAdapter

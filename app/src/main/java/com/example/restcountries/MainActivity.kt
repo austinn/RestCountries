@@ -3,6 +3,9 @@ package com.example.restcountries
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -34,5 +37,10 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         setupWithNavController(binding.bottomNavigation, navController)
+
+        navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
+            binding.bottomNavigation.isVisible =
+                appBarConfiguration.topLevelDestinations.contains(destination.id)
+        }
     }
 }

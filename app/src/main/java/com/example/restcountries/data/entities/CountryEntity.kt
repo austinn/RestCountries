@@ -11,9 +11,10 @@ data class CountryEntity(
 
     val name: String,
     val capital: String? = null,
+    val population: Int? = null,
+    val area: Double? = null,
     val region: String? = null,
     val subregion: String? = null,
-    val population: Int? = null,
     val latlng: List<Double>? = null,
 
     @Embedded
@@ -25,25 +26,25 @@ data class Flags(
     val png: String,
 )
 
-val countryList = listOf(
-    CountryEntity(
-        id = 0,
-        name = "Afghanistan",
-        capital = "Kabul",
-    ),
-    CountryEntity(
-        id = 1,
-        name = "Åland Islands",
-        capital = "Mariehamn",
-    ),
-    CountryEntity(
-        id = 2,
-        name = "Albania",
-        capital = "Tirana",
-    ),
-    CountryEntity(
-        id = 3,
-        name = "Algeria",
-        capital = "Algiers",
-    ),
-)
+//val countryList = listOf(
+//    CountryEntity(
+//        id = 0,
+//        name = "Afghanistan",
+//        capital = "Kabul",
+//    ),
+//    CountryEntity(
+//        id = 1,
+//        name = "Åland Islands",
+//        capital = "Mariehamn",
+//    ),
+//    CountryEntity(
+//        id = 2,
+//        name = "Albania",
+//        capital = "Tirana",
+//    ),
+//    CountryEntity(
+//        id = 3,
+//        name = "Algeria",
+//        capital = "Algiers",
+//    ),
+//)
